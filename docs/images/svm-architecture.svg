@@ -1,42 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 290" font-family="system-ui,sans-serif">
-  <defs><marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#6366f1"/></marker></defs>
-  <rect width="820" height="290" fill="#f8fafc" rx="8"/>
-  <text x="30" y="24" font-size="16" font-weight="700" fill="#172033">SVM (RBF)：核映射 → 最大间隔 → OVO 多分类</text>
-  <!-- Flow -->
-  <rect x="20" y="42" width="140" height="55" rx="6" fill="#bfdbfe" stroke="#94a3b8"/>
-  <text x="90" y="64" text-anchor="middle" font-size="12" font-weight="600" fill="#172033">标准化特征</text>
-  <text x="90" y="82" text-anchor="middle" font-size="10" fill="#5b6475">n×16, μ=0 σ=1</text>
-  <line x1="160" y1="70" x2="200" y2="70" stroke="#6366f1" stroke-width="2" marker-end="url(#a)"/>
-  <rect x="205" y="42" width="155" height="55" rx="6" fill="#c7d2fe" stroke="#94a3b8"/>
-  <text x="282" y="62" text-anchor="middle" font-size="12" font-weight="600" fill="#172033">RBF 核映射</text>
-  <text x="282" y="82" text-anchor="middle" font-size="10" fill="#5b6475">K(x,x')=exp(−γ∥x−x'∥²)</text>
-  <line x1="360" y1="70" x2="400" y2="70" stroke="#6366f1" stroke-width="2" marker-end="url(#a)"/>
-  <rect x="405" y="42" width="155" height="55" rx="6" fill="#c7d2fe" stroke="#94a3b8"/>
-  <text x="482" y="62" text-anchor="middle" font-size="12" font-weight="600" fill="#172033">软间隔优化</text>
-  <text x="482" y="82" text-anchor="middle" font-size="10" fill="#5b6475">min ½∥w∥²+CΣξᵢ</text>
-  <line x1="560" y1="70" x2="600" y2="70" stroke="#6366f1" stroke-width="2" marker-end="url(#a)"/>
-  <rect x="605" y="40" width="100" height="60" rx="6" fill="#99f6e4" stroke="#94a3b8"/>
-  <text x="655" y="62" text-anchor="middle" font-size="13" font-weight="700" fill="#172033">21个子模型</text>
-  <text x="655" y="82" text-anchor="middle" font-size="10" fill="#5b6475">C(7,2)=21</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 195" font-family="system-ui,sans-serif">
+  <defs><marker id="a" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5 Z" fill="#6366f1"/></marker></defs>
+  <rect width="780" height="195" fill="#f8fafc" rx="8"/>
+  <!-- Top flow -->
+  <rect x="10" y="10" width="130" height="38" rx="6" fill="#bfdbfe" stroke="#94a3b8"/>
+  <text x="75" y="34" text-anchor="middle" font-size="12" font-weight="600" fill="#172033">标准化特征</text>
+  <line x1="140" y1="29" x2="175" y2="29" stroke="#6366f1" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="180" y="10" width="140" height="38" rx="6" fill="#c7d2fe" stroke="#94a3b8"/>
+  <text x="250" y="34" text-anchor="middle" font-size="12" font-weight="600" fill="#172033">RBF核 → 高维映射</text>
+  <line x1="320" y1="29" x2="355" y2="29" stroke="#6366f1" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="360" y="10" width="155" height="38" rx="6" fill="#c7d2fe" stroke="#94a3b8"/>
+  <text x="437" y="34" text-anchor="middle" font-size="12" font-weight="600" fill="#172033">软间隔优化 (C=10)</text>
+  <line x1="515" y1="29" x2="550" y2="29" stroke="#6366f1" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="555" y="8" width="85" height="42" rx="6" fill="#99f6e4" stroke="#94a3b8"/>
+  <text x="597" y="26" text-anchor="middle" font-size="14" font-weight="700" fill="#172033">21个SVM</text>
+  <text x="597" y="42" text-anchor="middle" font-size="9" fill="#5b6475">C(7,2)=21</text>
   <!-- OVO -->
-  <text x="30" y="130" font-size="14" font-weight="600" fill="#172033">多分类策略：One-vs-One (OVO)</text>
-  <rect x="20" y="142" width="780" height="55" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-dasharray="6 5"/>
-  <text x="30" y="162" font-size="11" fill="#5b6475">BvB BvC BvD BvH BvSe BvSi │ CvD CvH CvSe CvSi │ DvH DvSe DvSi │ HvSe HvSi │ SevSi ... 共21对</text>
-  <text x="30" y="180" font-size="11" fill="#5b6475">每对训练一个二分类SVM；预测时21个分类器投票，票数最多的类胜出</text>
+  <text x="20" y="75" font-size="12" font-weight="600" fill="#172033">多分类：一对一 (OVO) —  21对组合，每对训练一个二分类SVM</text>
+  <rect x="10" y="85" width="760" height="35" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-dasharray="4 3"/>
+  <circle cx="45" cy="103" r="5" fill="#93c5fd"/><text x="54" y="108" font-size="9" fill="#5b6475">BvB</text>
+  <circle cx="115" cy="103" r="5" fill="#93c5fd"/><text x="124" y="108" font-size="9" fill="#5b6475">BvC</text>
+  <circle cx="185" cy="103" r="5" fill="#93c5fd"/><text x="194" y="108" font-size="9" fill="#5b6475">BvD</text>
+  <circle cx="255" cy="103" r="5" fill="#93c5fd"/><text x="264" y="108" font-size="9" fill="#5b6475">CvD</text>
+  <circle cx="325" cy="103" r="5" fill="#93c5fd"/><text x="334" y="108" font-size="9" fill="#5b6475">CvH</text>
+  <circle cx="395" cy="103" r="5" fill="#93c5fd"/><text x="404" y="108" font-size="9" fill="#5b6475">DvH</text>
+  <circle cx="465" cy="103" r="5" fill="#93c5fd"/><text x="474" y="108" font-size="9" fill="#5b6475">DvSe</text>
+  <text x="540" y="108" font-size="9" fill="#5b6475">···共21个</text>
   <!-- Prediction -->
-  <text x="30" y="222" font-size="14" font-weight="600" fill="#172033">预测：</text>
-  <rect x="20" y="234" width="100" height="38" rx="4" fill="#fde68a" stroke="#94a3b8"/>
-  <text x="70" y="258" text-anchor="middle" font-size="12" fill="#172033">新样本</text>
-  <line x1="120" y1="253" x2="160" y2="253" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
-  <rect x="165" y="228" width="170" height="50" rx="6" fill="#c7d2fe" stroke="#94a3b8"/>
-  <text x="250" y="250" text-anchor="middle" font-size="11" fill="#172033">21个SVM各自预测</text>
-  <text x="250" y="268" text-anchor="middle" font-size="10" fill="#5b6475">每对输出一个胜者</text>
-  <line x1="335" y1="253" x2="375" y2="253" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
-  <rect x="380" y="228" width="130" height="50" rx="6" fill="#c7d2fe" stroke="#94a3b8"/>
-  <text x="445" y="250" text-anchor="middle" font-size="11" fill="#172033">计票</text>
-  <text x="445" y="268" text-anchor="middle" font-size="10" fill="#5b6475">票数最多=预测</text>
-  <line x1="510" y1="253" x2="560" y2="253" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
-  <rect x="565" y="236" width="80" height="35" rx="4" fill="#fde68a" stroke="#94a3b8"/>
-  <text x="605" y="258" text-anchor="middle" font-size="14" font-weight="700" fill="#172033">93.31%</text>
-  <text x="30" y="283" font-size="10" fill="#6366f1">特点：精度最高 (93.31%)，过拟合最低 (0.95%)，但推理最慢 (610ms) — 需存储支持向量并计算核函数</text>
+  <text x="20" y="152" font-size="12" font-weight="600" fill="#172033">预测：</text>
+  <ellipse cx="55" cy="175" rx="16" ry="12" fill="#fde68a" stroke="#e2e8f0"/>
+  <text x="55" y="179" text-anchor="middle" font-size="9" fill="#172033">x</text>
+  <line x1="71" y1="175" x2="120" y2="175" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="125" y="160" width="155" height="30" rx="6" fill="#c7d2fe" stroke="#94a3b8"/>
+  <text x="202" y="179" text-anchor="middle" font-size="11" fill="#172033">21个分类器投票</text>
+  <line x1="280" y1="175" x2="320" y2="175" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="325" y="160" width="130" height="30" rx="6" fill="#c7d2fe" stroke="#94a3b8"/>
+  <text x="390" y="179" text-anchor="middle" font-size="11" fill="#172033">票数最多=预测</text>
+  <line x1="455" y1="175" x2="500" y2="175" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="505" y="162" width="70" height="26" rx="6" fill="#fde68a" stroke="#94a3b8"/>
+  <text x="540" y="179" text-anchor="middle" font-size="13" font-weight="700" fill="#172033">93.31%</text>
 </svg>

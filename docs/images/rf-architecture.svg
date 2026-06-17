@@ -1,56 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 300" font-family="system-ui,sans-serif">
-  <defs><marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#6366f1"/></marker></defs>
-  <rect width="820" height="300" fill="#f8fafc" rx="8"/>
-  <text x="30" y="24" font-size="16" font-weight="700" fill="#172033">Random Forest：Bootstrap 采样 → 100棵树并行训练 → 多数投票</text>
-  <!-- Bootstrap -->
-  <rect x="20" y="42" width="140" height="55" rx="6" fill="#bfdbfe" stroke="#94a3b8"/>
-  <text x="90" y="62" text-anchor="middle" font-size="12" font-weight="600" fill="#172033">原始训练集</text>
-  <text x="90" y="80" text-anchor="middle" font-size="10" fill="#5b6475">9527条×16维</text>
-  <line x1="160" y1="52" x2="210" y2="52" stroke="#6366f1" stroke-width="1.5"/>
-  <line x1="160" y1="70" x2="210" y2="70" stroke="#6366f1" stroke-width="1.5" marker-end="url(#a)"/>
-  <line x1="160" y1="88" x2="210" y2="88" stroke="#6366f1" stroke-width="1.5"/>
-  <text x="175" y="40" font-size="10" fill="#6366f1">Bootstrap</text>
-  <text x="175" y="38" font-size="10" fill="#5b6475">有放回</text>
-  <!-- 3 tree groups -->
-  <rect x="215" y="36" width="80" height="28" rx="3" fill="#e2e8f0"/>
-  <text x="255" y="55" text-anchor="middle" font-size="10" fill="#172033">子集₁</text>
-  <rect x="215" y="68" width="80" height="28" rx="3" fill="#e2e8f0"/>
-  <text x="255" y="87" text-anchor="middle" font-size="10" fill="#172033">子集₂</text>
-  <rect x="215" y="100" width="80" height="28" rx="3" fill="#e2e8f0"/>
-  <text x="255" y="119" text-anchor="middle" font-size="10" fill="#172033">子集₁₀₀</text>
-  <line x1="295" y1="50" x2="340" y2="50" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
-  <line x1="295" y1="82" x2="340" y2="82" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
-  <line x1="295" y1="114" x2="340" y2="114" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
-  <rect x="345" y="36" width="140" height="28" rx="3" fill="#c7d2fe"/>
-  <text x="415" y="55" text-anchor="middle" font-size="10" fill="#172033">决策树₁ (depth=12)</text>
-  <rect x="345" y="68" width="140" height="28" rx="3" fill="#c7d2fe"/>
-  <text x="415" y="87" text-anchor="middle" font-size="10" fill="#172033">决策树₂ (depth=12)</text>
-  <rect x="345" y="100" width="140" height="28" rx="3" fill="#c7d2fe"/>
-  <text x="415" y="119" text-anchor="middle" font-size="10" fill="#172033">决策树₁₀₀ (depth=12)</text>
-  <!-- Split detail -->
-  <rect x="510" y="36" width="285" height="95" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-dasharray="6 5"/>
-  <text x="652" y="54" text-anchor="middle" font-size="11" font-weight="600" fill="#172033">每棵树每个节点的分裂逻辑</text>
-  <text x="520" y="72" font-size="10" fill="#5b6475">① 随机选 m=√16=4 个特征</text>
-  <text x="520" y="88" font-size="10" fill="#5b6475">② 对每个特征计算 Gini 不纯度减少量</text>
-  <text x="520" y="104" font-size="10" fill="#5b6475">③ 选最优分裂：Gini − Σ(w·Gini_child)</text>
-  <text x="520" y="120" font-size="10" fill="#5b6475">④ 37%袋外样本(OOB) → 天然验证</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 195" font-family="system-ui,sans-serif">
+  <defs><marker id="a" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5 Z" fill="#6366f1"/></marker></defs>
+  <rect width="780" height="195" fill="#f8fafc" rx="8"/>
+  <!-- Top -->
+  <text x="20" y="22" font-size="13" font-weight="600" fill="#172033">训练：Bootstrap 采样 → 100棵树并行训练 → 每棵随机选 √16=4 特征分裂</text>
+  <rect x="10" y="36" width="120" height="40" rx="6" fill="#bfdbfe" stroke="#94a3b8"/>
+  <text x="70" y="60" text-anchor="middle" font-size="11" font-weight="600" fill="#172033">训练集 (9527条)</text>
+  <!-- Bootstrap → samples -->
+  <line x1="130" y1="45" x2="175" y2="45" stroke="#6366f1" stroke-width="1.5"/><line x1="130" y1="56" x2="175" y2="56" stroke="#6366f1" stroke-width="1.5"/><line x1="130" y1="67" x2="175" y2="67" stroke="#6366f1" stroke-width="1.5"/>
+  <text x="152" y="35" font-size="9" fill="#6366f1">Bootstrap</text>
+  <!-- Samples → trees -->
+  <rect x="180" y="35" width="80" height="18" rx="3" fill="#e2e8f0"/><text x="220" y="48" text-anchor="middle" font-size="9" fill="#172033">子集₁</text><line x1="260" y1="44" x2="290" y2="44" stroke="#64748b" stroke-width="1.5"/>
+  <rect x="180" y="56" width="80" height="18" rx="3" fill="#e2e8f0"/><text x="220" y="69" text-anchor="middle" font-size="9" fill="#172033">子集₂</text><line x1="260" y1="65" x2="290" y2="65" stroke="#64748b" stroke-width="1.5"/>
+  <rect x="180" y="77" width="80" height="18" rx="3" fill="#e2e8f0"/><text x="220" y="90" text-anchor="middle" font-size="9" fill="#172033">子集₁₀₀</text><line x1="260" y1="86" x2="290" y2="86" stroke="#64748b" stroke-width="1.5"/>
+  <!-- Trees with circles -->
+  <circle cx="330" cy="44" r="12" fill="#c7d2fe" stroke="#818cf8"/><text x="330" y="48" text-anchor="middle" font-size="9" fill="#172033">T₁</text>
+  <circle cx="330" cy="65" r="12" fill="#c7d2fe" stroke="#818cf8"/><text x="330" y="69" text-anchor="middle" font-size="9" fill="#172033">T₂</text>
+  <circle cx="330" cy="86" r="12" fill="#c7d2fe" stroke="#818cf8"/><text x="330" y="90" text-anchor="middle" font-size="9" fill="#172033">T₁₀₀</text>
+  <text x="360" y="48" font-size="9" fill="#5b6475">depth=12, Gini 分裂</text>
+  <text x="360" y="68" font-size="9" fill="#5b6475">随机选4特征/节点</text>
+  <text x="360" y="90" font-size="9" fill="#5b6475">OOB 37%天然验证</text>
   <!-- Prediction -->
-  <text x="30" y="165" font-size="14" font-weight="600" fill="#172033">预测阶段：100棵树 → 投票</text>
-  <rect x="20" y="178" width="90" height="36" rx="4" fill="#fde68a" stroke="#94a3b8"/>
-  <text x="65" y="200" text-anchor="middle" font-size="12" fill="#172033">新样本</text>
-  <line x1="110" y1="196" x2="155" y2="196" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
-  <rect x="160" y="170" width="180" height="52" rx="6" fill="#c7d2fe" stroke="#94a3b8"/>
-  <text x="250" y="192" text-anchor="middle" font-size="11" fill="#172033">100棵树各自预测</text>
-  <text x="250" y="210" text-anchor="middle" font-size="10" fill="#5b6475">每棵树输出一个类标</text>
-  <line x1="340" y1="196" x2="385" y2="196" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
-  <rect x="390" y="170" width="130" height="52" rx="6" fill="#c7d2fe" stroke="#94a3b8"/>
-  <text x="455" y="192" text-anchor="middle" font-size="11" fill="#172033">多数投票</text>
-  <text x="455" y="210" text-anchor="middle" font-size="10" fill="#5b6475">argmax Σ I(c)</text>
-  <line x1="520" y1="196" x2="565" y2="196" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
-  <rect x="570" y="180" width="80" height="32" rx="4" fill="#fde68a" stroke="#94a3b8"/>
-  <text x="610" y="200" text-anchor="middle" font-size="13" font-weight="700" fill="#172033">92.36%</text>
-  <!-- Notes -->
-  <rect x="20" y="245" width="780" height="45" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-dasharray="6 5"/>
-  <text x="30" y="264" font-size="10" fill="#5b6475">附加输出：特征重要性 (Feature Importance) — 每棵树的Gini减少量平均 → Area > Perimeter > MajorAxis > ...</text>
-  <text x="30" y="280" font-size="10" fill="#6366f1">特点：推理快(45ms)，对噪声鲁棒，不需要特征缩放，但过拟合6.41%需要正则化</text>
+  <text x="20" y="140" font-size="13" font-weight="600" fill="#172033">预测：</text>
+  <ellipse cx="50" cy="165" rx="14" ry="11" fill="#fde68a" stroke="#e2e8f0"/><text x="50" y="169" text-anchor="middle" font-size="8" fill="#172033">x</text>
+  <line x1="64" y1="165" x2="110" y2="165" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
+  <circle cx="140" cy="165" r="10" fill="#c7d2fe" stroke="#818cf8"/><circle cx="170" cy="165" r="10" fill="#c7d2fe" stroke="#818cf8"/><circle cx="200" cy="165" r="10" fill="#c7d2fe" stroke="#818cf8"/>
+  <text x="220" y="169" font-size="9" fill="#5b6475">... 100棵树</text>
+  <line x1="290" y1="165" x2="330" y2="165" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="335" y="150" width="120" height="30" rx="6" fill="#c7d2fe" stroke="#94a3b8"/>
+  <text x="395" y="169" text-anchor="middle" font-size="11" fill="#172033">多数投票</text>
+  <line x1="455" y1="165" x2="495" y2="165" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="500" y="153" width="70" height="24" rx="6" fill="#fde68a" stroke="#94a3b8"/>
+  <text x="535" y="169" text-anchor="middle" font-size="13" font-weight="700" fill="#172033">92.36%</text>
 </svg>
