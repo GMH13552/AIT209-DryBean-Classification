@@ -1,0 +1,426 @@
+<!doctype html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Model Architecture Diagrams</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f8fafc; --fg: #172033; --muted: #5b6475; --line: #64748b;
+    --neutral: #e2e8f0; --input: #bfdbfe; --process: #c7d2fe;
+    --storage: #99f6e4; --external: #fde68a; --risk: #fecaca;
+    --highlight: #818cf8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f172a; --fg: #e5e7eb; --muted: #a3adbd; --line: #94a3b8;
+      --neutral: #334155; --input: #1d4ed8; --process: #4338ca;
+      --storage: #0f766e; --external: #92400e; --risk: #991b1b;
+      --highlight: #6366f1;
+    }
+  }
+  body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.4 ui-sans-serif,system-ui,sans-serif; }
+  main { max-width:1000px; margin:32px auto; padding:0 20px; }
+  svg { width:100%; height:auto; display:block; }
+  .title { font-size:20px; font-weight:650; fill:var(--fg); }
+  .label { font-size:14px; font-weight:600; fill:var(--fg); }
+  .small { font-size:12px; fill:var(--muted); }
+  .node { stroke:var(--line); stroke-width:1; }
+  .neutral { fill:var(--neutral); }
+  .input { fill:var(--input); }
+  .process { fill:var(--process); }
+  .storage { fill:var(--storage); }
+  .external { fill:var(--external); }
+  .risk { fill:var(--risk); }
+  .hl { fill:var(--highlight); }
+  .edge { stroke:var(--line); stroke-width:1.5; fill:none; }
+  .edge-thick { stroke:var(--highlight); stroke-width:2.5; fill:none; }
+  .zone { fill:none; stroke:var(--line); stroke-width:1; stroke-dasharray:6 5; opacity:0.8; }
+  section { margin-bottom:48px; }
+  h2 { margin:0 0 8px 0; }
+  p { color:var(--muted); margin:0 0 16px 0; }
+</style>
+<main>
+
+<!-- ============================================================ -->
+<section>
+<h2>1. GCN (图卷积网络) — 从表格到图</h2>
+<p>核心创新：将无图结构的表格数据，通过 KNN 构造样本间图，再用消息传递进行节点分类。</p>
+<svg viewBox="0 0 900 500">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="var(--line)"/></marker>
+    <marker id="arrow-hl" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="var(--highlight)"/></marker>
+  </defs>
+
+  <!-- Phase 1: Tabular Data → Graph -->
+  <text x="30" y="22" class="title">Phase 1: KNN 图构造</text>
+  <text x="30" y="42" class="small">每个样本 = 图中一个节点，连边 = K 个最近邻居</text>
+
+  <!-- Feature matrix -->
+  <rect x="30" y="55" width="160" height="100" rx="6" class="node input"/>
+  <text x="110" y="80" text-anchor="middle" class="label">特征矩阵 X</text>
+  <text x="110" y="100" text-anchor="middle" class="small">n × 16</text>
+  <text x="110" y="118" text-anchor="middle" class="small">[面积,周长,长轴,...]</text>
+  <text x="110" y="136" text-anchor="middle" class="small">9,527 条训练样本</text>
+
+  <path d="M190,105 L240,105" class="edge" marker-end="url(#arrow)"/>
+
+  <!-- KNN -->
+  <rect x="245" y="65" width="140" height="80" rx="6" class="node process"/>
+  <text x="315" y="90" text-anchor="middle" class="label">NearestNeighbors</text>
+  <text x="315" y="110" text-anchor="middle" class="small">k = 10</text>
+  <text x="315" y="128" text-anchor="middle" class="small">欧氏距离</text>
+
+  <path d="M385,105 L440,105" class="edge" marker-end="url(#arrow)"/>
+
+  <!-- Graph visualization -->
+  <rect x="445" y="40" width="180" height="130" rx="6" class="node storage"/>
+  <text x="535" y="65" text-anchor="middle" class="label">KNN 图</text>
+  <text x="535" y="85" text-anchor="middle" class="small">10,874 节点</text>
+  <text x="535" y="103" text-anchor="middle" class="small">108,740 有向边</text>
+  <text x="535" y="121" text-anchor="middle" class="small">每个节点 10 条出边</text>
+  <text x="535" y="139" text-anchor="middle" class="small">连接与其最相似的豆子</text>
+
+  <path d="M535,170 L535,210" class="edge-thick" marker-end="url(#arrow-hl)"/>
+
+  <!-- Phase 2: GCN -->
+  <text x="30" y="215" class="title">Phase 2: 图卷积网络 (GCN)</text>
+
+  <!-- Layer 1 -->
+  <rect x="30" y="230" width="200" height="100" rx="6" class="node process"/>
+  <text x="130" y="255" text-anchor="middle" class="label">GCN Layer 1</text>
+  <text x="130" y="275" text-anchor="middle" class="small">H' = σ(D⁻½AD⁻½ H W₁ + b₁)</text>
+  <text x="130" y="295" text-anchor="middle" class="small">16 → 64 (ReLU)</text>
+  <text x="130" y="313" text-anchor="middle" class="small">消息传递：邻居特征聚合</text>
+
+  <path d="M230,280 L275,280" class="edge" marker-end="url(#arrow)"/>
+
+  <!-- Dropout -->
+  <rect x="280" y="240" width="110" height="80" rx="6" class="node risk"/>
+  <text x="335" y="265" text-anchor="middle" class="label">Dropout</text>
+  <text x="335" y="285" text-anchor="middle" class="small">p = 0.3</text>
+  <text x="335" y="303" text-anchor="middle" class="small">随机失活 30%</text>
+
+  <path d="M390,280 L430,280" class="edge" marker-end="url(#arrow)"/>
+
+  <!-- Layer 2 -->
+  <rect x="435" y="230" width="200" height="100" rx="6" class="node process"/>
+  <text x="535" y="255" text-anchor="middle" class="label">GCN Layer 2</text>
+  <text x="535" y="275" text-anchor="middle" class="small">H'' = σ(D⁻½AD⁻½ H' W₂ + b₂)</text>
+  <text x="535" y="295" text-anchor="middle" class="small">64 → 7 (输出 logits)</text>
+  <text x="535" y="313" text-anchor="middle" class="small">参数总计：1,543</text>
+
+  <path d="M635,280 L680,280" class="edge" marker-end="url(#arrow)"/>
+
+  <!-- Softmax -->
+  <rect x="685" y="240" width="100" height="80" rx="6" class="node external"/>
+  <text x="735" y="265" text-anchor="middle" class="label">Softmax</text>
+  <text x="735" y="285" text-anchor="middle" class="small">7 类概率</text>
+  <text x="735" y="303" text-anchor="middle" class="small">→ 预测类别</text>
+
+  <!-- Detail: message passing -->
+  <rect x="200" y="370" width="460" height="110" rx="6" class="zone"/>
+  <text x="430" y="392" text-anchor="middle" class="label">消息传递细节（单层 GCN）</text>
+
+  <text x="215" y="415" class="small">① 对每条边 (i→j): 节点 j 的特征 → 用归一化权重 D⁻½A D⁻½ 缩放</text>
+  <text x="215" y="435" class="small">② 聚合 (scatter_add): 节点 i 收集所有邻居 j 的缩放后特征 → 求和</text>
+  <text x="215" y="455" class="small">③ 变换: 聚合特征 × W（线性变换）+ b（偏置）</text>
+  <text x="215" y="475" class="small">④ 激活: ReLU(·)  → 输出第 l+1 层的节点特征 H^(l+1)</text>
+
+  <!-- Loss -->
+  <path d="M735,320 L735,355 L740,355" class="edge" marker-end="url(#arrow)"/>
+  <text x="740" y="370" class="small" fill="var(--muted)">CrossEntropy Loss + Adam 优化器</text>
+</svg>
+</section>
+
+<!-- ============================================================ -->
+<section>
+<h2>2. KNN — 懒惰学习，近邻投票</h2>
+<p>不训练模型，直接存储全部训练数据。预测时计算距离，找 K 个最近邻居投票。</p>
+<svg viewBox="0 0 900 280">
+  <defs>
+    <marker id="a2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="var(--line)"/></marker>
+  </defs>
+
+  <!-- Training phase -->
+  <text x="30" y="22" class="title">训练阶段：存储全部数据（无需计算）</text>
+  <rect x="30" y="40" width="200" height="60" rx="6" class="node input"/>
+  <text x="130" y="62" text-anchor="middle" class="label">训练数据 (X_train, y_train)</text>
+  <text x="130" y="82" text-anchor="middle" class="small">9,527 条 × 16 维 → 存储到 kd-tree</text>
+
+  <path d="M230,70 L280,70" class="edge" marker-end="url(#a2)"/>
+
+  <rect x="285" y="40" width="140" height="60" rx="6" class="node storage"/>
+  <text x="355" y="62" text-anchor="middle" class="label">kd-tree 结构</text>
+  <text x="355" y="82" text-anchor="middle" class="small">空间索引，加速搜索</text>
+
+  <!-- Prediction phase -->
+  <text x="30" y="140" class="title">预测阶段（每条新样本）</text>
+
+  <rect x="30" y="155" width="130" height="50" rx="6" class="node external"/>
+  <text x="95" y="175" text-anchor="middle" class="label">新样本 x</text>
+  <text x="95" y="193" text-anchor="middle" class="small">16 维特征向量</text>
+
+  <path d="M160,180 L210,180" class="edge" marker-end="url(#a2)"/>
+
+  <rect x="215" y="148" width="160" height="65" rx="6" class="node process"/>
+  <text x="295" y="168" text-anchor="middle" class="label">① 计算欧氏距离</text>
+  <text x="295" y="186" text-anchor="middle" class="small">d(x,x') = √Σ(xⱼ−x'ⱼ)²</text>
+  <text x="295" y="203" text-anchor="middle" class="small">与全部 9,527 个样本</text>
+
+  <path d="M375,180 L425,180" class="edge" marker-end="url(#a2)"/>
+
+  <rect x="430" y="148" width="150" height="65" rx="6" class="node process"/>
+  <text x="505" y="168" text-anchor="middle" class="label">② 找 K=5 近邻</text>
+  <text x="505" y="186" text-anchor="middle" class="small">取距离最近的 5 个</text>
+  <text x="505" y="203" text-anchor="middle" class="small">训练样本</text>
+
+  <path d="M580,180 L630,180" class="edge" marker-end="url(#a2)"/>
+
+  <rect x="635" y="148" width="130" height="65" rx="6" class="node process"/>
+  <text x="700" y="168" text-anchor="middle" class="label">③ 多数投票</text>
+  <text x="700" y="186" text-anchor="middle" class="small">ŷ = argmax Σ I(y=c)</text>
+  <text x="700" y="203" text-anchor="middle" class="small">5 个邻居投票</text>
+
+  <path d="M765,180 L805,180" class="edge" marker-end="url(#a2)"/>
+
+  <rect x="810" y="155" width="70" height="50" rx="6" class="node external"/>
+  <text x="845" y="185" text-anchor="middle" class="label">预测</text>
+
+</svg>
+</section>
+
+<!-- ============================================================ -->
+<section>
+<h2>3. SVM — 最大间隔超平面 + RBF 核</h2>
+<p>寻找能最大间隔分隔各类别的超平面。RBF 核将数据映射到高维空间处理非线性。多分类采用一对一策略。</p>
+<svg viewBox="0 0 900 360">
+  <defs>
+    <marker id="a3" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="var(--line)"/></marker>
+  </defs>
+
+  <!-- Training -->
+  <text x="30" y="22" class="title">训练阶段</text>
+
+  <rect x="30" y="38" width="160" height="55" rx="6" class="node input"/>
+  <text x="110" y="58" text-anchor="middle" class="label">标准化特征 X</text>
+  <text x="110" y="78" text-anchor="middle" class="small">n × 16, 均值0, 标准差1</text>
+
+  <path d="M190,65 L240,65" class="edge" marker-end="url(#a3)"/>
+
+  <rect x="245" y="28" width="210" height="75" rx="6" class="node process"/>
+  <text x="350" y="48" text-anchor="middle" class="label">RBF 核映射</text>
+  <text x="350" y="68" text-anchor="middle" class="small">K(x,x') = exp(−γ∥x−x'∥²)</text>
+  <text x="350" y="88" text-anchor="middle" class="small">γ = 1/(n_features × Var(X))</text>
+
+  <path d="M455,65 L500,65" class="edge" marker-end="url(#a3)"/>
+
+  <rect x="505" y="28" width="210" height="75" rx="6" class="node process"/>
+  <text x="610" y="48" text-anchor="middle" class="label">软间隔优化</text>
+  <text x="610" y="68" text-anchor="middle" class="small">min ½∥w∥² + C Σξᵢ</text>
+  <text x="610" y="88" text-anchor="middle" class="small">C=10, 允许部分误分类</text>
+
+  <path d="M715,65 L760,65" class="edge" marker-end="url(#a3)"/>
+
+  <rect x="765" y="33" width="110" height="55" rx="6" class="node storage"/>
+  <text x="820" y="58" text-anchor="middle" class="label">C(7,2)=21</text>
+  <text x="820" y="78" text-anchor="middle" class="small">个二分类器</text>
+
+  <!-- OVO detail -->
+  <text x="30" y="145" class="title">多分类策略：一对一 (One-vs-One)</text>
+
+  <rect x="30" y="158" width="820" height="95" rx="6" class="zone"/>
+  <text x="440" y="180" text-anchor="middle" class="label">21 对组合 → 21 个 SVM 子分类器</text>
+  <text x="45" y="202" class="small">BARBUNYA vs BOMBAY | BARBUNYA vs CALI | BARBUNYA vs DERMASON | ... | SEKER vs SIRA</text>
+  <text x="45" y="222" class="small">每个子分类器在高维空间中寻找一个最大间隔超平面，由少量支持向量定义</text>
+  <text x="45" y="242" class="small">关键参数：C=10（正则化强度），γ='scale'（核宽度自适应）</text>
+
+  <!-- Prediction -->
+  <text x="30" y="295" class="title">预测阶段</text>
+
+  <rect x="30" y="308" width="120" height="40" rx="6" class="node external"/>
+  <text x="90" y="332" text-anchor="middle" class="label">新样本</text>
+
+  <path d="M150,328 L195,328" class="edge" marker-end="url(#a3)"/>
+
+  <rect x="200" y="298" width="170" height="60" rx="6" class="node process"/>
+  <text x="285" y="320" text-anchor="middle" class="label">21 个子分类器分别预测</text>
+  <text x="285" y="342" text-anchor="middle" class="small">每个输出一个类别票</text>
+
+  <path d="M370,328 L420,328" class="edge" marker-end="url(#a3)"/>
+
+  <rect x="425" y="298" width="130" height="60" rx="6" class="node process"/>
+  <text x="490" y="320" text-anchor="middle" class="label">投票统计</text>
+  <text x="490" y="342" text-anchor="middle" class="small">得票最多的类别 = 预测</text>
+
+  <path d="M555,328 L600,328" class="edge" marker-end="url(#a3)"/>
+
+  <rect x="605" y="308" width="70" height="40" rx="6" class="node external"/>
+  <text x="640" y="332" text-anchor="middle" class="label">93.31%</text>
+</svg>
+</section>
+
+<!-- ============================================================ -->
+<section>
+<h2>4. Random Forest — Bagging + 随机特征选择</h2>
+<p>Bootstrap 采样子集训练多棵决策树，每棵树在每个节点随机选择特征子集寻找最优分裂。最终由 100 棵树多数投票。</p>
+<svg viewBox="0 0 900 380">
+  <defs>
+    <marker id="a4" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="var(--line)"/></marker>
+  </defs>
+
+  <text x="30" y="22" class="title">训练阶段：并行训练 100 棵决策树</text>
+
+  <!-- Original data -->
+  <rect x="30" y="40" width="140" height="50" rx="6" class="node input"/>
+  <text x="100" y="62" text-anchor="middle" class="label">原始训练集</text>
+  <text x="100" y="80" text-anchor="middle" class="small">9,527 条 × 16 维</text>
+
+  <!-- Bootstrap sampling arrow -->
+  <path d="M170,65 L230,50" class="edge" marker-end="url(#a4)"/>
+  <path d="M170,65 L230,65" class="edge" marker-end="url(#a4)"/>
+  <path d="M170,65 L230,80" class="edge" marker-end="url(#a4)"/>
+
+  <!-- Samples -->
+  <text x="235" y="22" class="small">Bootstrap 采样（有放回，~63% 样本被选中）</text>
+  <rect x="235" y="35" width="100" height="30" rx="4" class="node neutral"/>
+  <text x="285" y="55" text-anchor="middle" class="small">子集 1</text>
+  <rect x="235" y="70" width="100" height="30" rx="4" class="node neutral"/>
+  <text x="285" y="90" text-anchor="middle" class="small">子集 2</text>
+  <rect x="235" y="105" width="100" height="30" rx="4" class="node neutral"/>
+  <text x="285" y="125" text-anchor="middle" class="small">··· 子集 100</text>
+
+  <!-- Trees -->
+  <path d="M335,50 L380,50" class="edge" marker-end="url(#a4)"/>
+  <path d="M335,85 L380,85" class="edge" marker-end="url(#a4)"/>
+  <path d="M335,120 L380,120" class="edge" marker-end="url(#a4)"/>
+
+  <rect x="385" y="35" width="170" height="30" rx="4" class="node process"/>
+  <text x="470" y="55" text-anchor="middle" class="small">决策树 1 (max_depth=12)</text>
+  <rect x="385" y="70" width="170" height="30" rx="4" class="node process"/>
+  <text x="470" y="90" text-anchor="middle" class="small">决策树 2 (max_depth=12)</text>
+  <rect x="385" y="105" width="170" height="30" rx="4" class="node process"/>
+  <text x="470" y="125" text-anchor="middle" class="small">··· 决策树 100</text>
+
+  <!-- Split detail -->
+  <rect x="590" y="30" width="280" height="110" rx="6" class="zone"/>
+  <text x="730" y="52" text-anchor="middle" class="label">每棵树在每个节点的分裂</text>
+  <text x="605" y="72" class="small">① 随机选 m = √16 = 4 个特征</text>
+  <text x="605" y="92" class="small">② 对每个特征尝试分裂，计算 Gini 不纯度减少量</text>
+  <text x="605" y="112" class="small">③ 选最优分裂：Gini(D) - (|D_L|/|D|)·Gini(D_L) - (|D_R|/|D|)·Gini(D_R)</text>
+  <text x="605" y="132" class="small">④ 袋外样本 (OOB, ~37%) 作为天然验证集</text>
+
+  <!-- Vote -->
+  <path d="M555,50 L605,50" class="edge" />
+  <path d="M555,85 L605,85" class="edge" />
+  <path d="M555,120 L605,120" class="edge" />
+
+  <!-- Prediction -->
+  <text x="30" y="210" class="title">预测阶段：100 棵树多数投票</text>
+
+  <rect x="30" y="225" width="120" height="40" rx="6" class="node external"/>
+  <text x="90" y="249" text-anchor="middle" class="label">新样本</text>
+
+  <path d="M150,245 L200,245" class="edge" marker-end="url(#a4)"/>
+
+  <rect x="205" y="215" width="180" height="60" rx="6" class="node process"/>
+  <text x="295" y="238" text-anchor="middle" class="label">100 棵树各自预测</text>
+  <text x="295" y="258" text-anchor="middle" class="small">每棵树输出一个类标</text>
+
+  <path d="M385,245 L435,245" class="edge" marker-end="url(#a4)"/>
+
+  <rect x="440" y="215" width="140" height="60" rx="6" class="node process"/>
+  <text x="510" y="238" text-anchor="middle" class="label">多数投票</text>
+  <text x="510" y="258" text-anchor="middle" class="small">argmax Σ I(tree=c)</text>
+
+  <path d="M580,245 L625,245" class="edge" marker-end="url(#a4)"/>
+
+  <rect x="630" y="225" width="80" height="40" rx="6" class="node external"/>
+  <text x="670" y="249" text-anchor="middle" class="label">92.36%</text>
+
+  <!-- Feature importance -->
+  <rect x="30" y="300" width="820" height="60" rx="6" class="zone"/>
+  <text x="440" y="322" text-anchor="middle" class="label">附加输出：特征重要性排名</text>
+  <text x="45" y="345" class="small">每棵树计算每个特征的 Gini 不纯度减少量 → 森林平均 → 输出 Top-N 重要特征（如 Area > Perimeter > MajorAxisLength > ...）</text>
+</svg>
+</section>
+
+<!-- ============================================================ -->
+<section>
+<h2>5. AdaBoost — 自适应样本加权</h2>
+<p>不拟合残差，而是动态调整样本权重：分错的样本权重 ↑，分对的 ↓。50 轮迭代后加权投票。</p>
+<svg viewBox="0 0 900 400">
+  <defs>
+    <marker id="a5" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="var(--line)"/></marker>
+  </defs>
+
+  <text x="30" y="22" class="title">训练阶段：迭代 50 轮，每轮调整样本权重</text>
+
+  <!-- Init -->
+  <rect x="30" y="40" width="160" height="55" rx="6" class="node input"/>
+  <text x="110" y="62" text-anchor="middle" class="label">初始化</text>
+  <text x="110" y="80" text-anchor="middle" class="small">所有样本权重 w₁(i) = 1/n</text>
+
+  <path d="M190,67 L235,67" class="edge" marker-end="url(#a5)"/>
+
+  <!-- Iteration -->
+  <rect x="240" y="30" width="600" height="170" rx="6" class="zone"/>
+  <text x="540" y="55" text-anchor="middle" class="label">迭代 t = 1, 2, ..., 50</text>
+
+  <!-- Step 1 -->
+  <rect x="255" y="70" width="170" height="55" rx="4" class="node process"/>
+  <text x="340" y="90" text-anchor="middle" class="small">① 训练弱学习器 hₜ</text>
+  <text x="340" y="108" text-anchor="middle" class="small">决策树 (max_depth=3)</text>
+  <text x="340" y="124" text-anchor="middle" class="small">在加权训练集上拟合</text>
+
+  <path d="M425,97 L465,97" class="edge" marker-end="url(#a5)"/>
+
+  <!-- Step 2 -->
+  <rect x="470" y="70" width="175" height="55" rx="4" class="node process"/>
+  <text x="557" y="90" text-anchor="middle" class="small">② 计算错误率 &amp; 权重</text>
+  <text x="557" y="108" text-anchor="middle" class="small">εₜ = Σw(i)·I(错分)/Σw(i)</text>
+  <text x="557" y="124" text-anchor="middle" class="small">αₜ = ½ln((1-εₜ)/εₜ)</text>
+
+  <path d="M645,97 L685,97" class="edge" marker-end="url(#a5)"/>
+
+  <!-- Step 3 -->
+  <rect x="690" y="70" width="140" height="55" rx="4" class="node process"/>
+  <text x="760" y="90" text-anchor="middle" class="small">③ 更新权重</text>
+  <text x="760" y="108" text-anchor="middle" class="small">wₜ₊₁(i) = wₜ(i)·</text>
+  <text x="760" y="124" text-anchor="middle" class="small">exp(-αₜ·yᵢ·hₜ(xᵢ))</text>
+
+  <!-- Loop -->
+  <path d="M830,97 L845,97 L845,160 L270,160 L270,142" class="edge" marker-end="url(#a5)"/>
+  <text x="845" y="130" text-anchor="middle" class="small">循环</text>
+
+  <!-- Prediction -->
+  <text x="30" y="255" class="title">预测阶段：加权投票</text>
+
+  <rect x="30" y="270" width="120" height="40" rx="6" class="node external"/>
+  <text x="90" y="294" text-anchor="middle" class="label">新样本 x</text>
+
+  <path d="M150,290 L200,290" class="edge" marker-end="url(#a5)"/>
+
+  <rect x="205" y="260" width="200" height="60" rx="6" class="node process"/>
+  <text x="305" y="282" text-anchor="middle" class="label">50 个弱学习器各自预测</text>
+  <text x="305" y="302" text-anchor="middle" class="small">h₁(x), h₂(x), ..., h₅₀(x)</text>
+
+  <path d="M405,290 L455,290" class="edge" marker-end="url(#a5)"/>
+
+  <rect x="460" y="255" width="230" height="70" rx="6" class="node process"/>
+  <text x="575" y="278" text-anchor="middle" class="label">加权求和 → 最终预测</text>
+  <text x="575" y="298" text-anchor="middle" class="small">H(x) = sign(Σ αₜ · hₜ(x))</text>
+  <text x="575" y="316" text-anchor="middle" class="small">准确率高的分类器权重 (αₜ) 更大</text>
+
+  <path d="M690,290 L735,290" class="edge" marker-end="url(#a5)"/>
+
+  <rect x="740" y="270" width="80" height="40" rx="6" class="node external"/>
+  <text x="780" y="294" text-anchor="middle" class="label">89.84%</text>
+
+  <!-- Weak learner detail -->
+  <rect x="30" y="340" width="820" height="45" rx="6" class="zone"/>
+  <text x="440" y="362" text-anchor="middle" class="label">关键：弱学习器的"弱"是设计目标——只需略好于随机猜测（>50%准确率），通过自适应加权组合成强分类器</text>
+</svg>
+</section>
+
+</main>
+</file_contents>
