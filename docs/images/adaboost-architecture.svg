@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 310" font-family="system-ui,sans-serif">
+  <defs><marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#6366f1"/></marker></defs>
+  <rect width="820" height="310" fill="#f8fafc" rx="8"/>
+  <text x="30" y="24" font-size="16" font-weight="700" fill="#172033">AdaBoost：自适应样本加权 — 分错的样本权重↑，分对的↓</text>
+  <!-- Init -->
+  <rect x="20" y="42" width="150" height="48" rx="6" fill="#bfdbfe" stroke="#94a3b8"/>
+  <text x="95" y="62" text-anchor="middle" font-size="12" font-weight="600" fill="#172033">初始化</text>
+  <text x="95" y="80" text-anchor="middle" font-size="10" fill="#5b6475">所有样本权重 w₁(i)=1/n</text>
+  <line x1="170" y1="66" x2="215" y2="66" stroke="#6366f1" stroke-width="2" marker-end="url(#a)"/>
+  <!-- Iteration box -->
+  <rect x="220" y="30" width="380" height="72" rx="6" fill="#c7d2fe" stroke="#94a3b8"/>
+  <text x="410" y="50" text-anchor="middle" font-size="12" font-weight="600" fill="#172033">迭代 t = 1,2,...,50</text>
+  <text x="230" y="70" font-size="10" fill="#5b6475">① 在加权训练集上训练弱学习器 hₜ (决策树, depth=3)</text>
+  <text x="230" y="86" font-size="10" fill="#5b6475">② 计算错误率 εₜ = Σw·I(错分)/Σw → 分类器权重 αₜ = ½·ln((1−εₜ)/εₜ)</text>
+  <text x="230" y="101" font-size="9" fill="#6366f1">③ 更新权重：wₜ₊₁(i) = wₜ(i)·exp(−αₜ·yᵢ·hₜ(xᵢ))  — 错分 ↑，对分 ↓</text>
+  <!-- Loop arrow -->
+  <path d="M600,66 L630,66 L630,120 L420,120 L420,98" stroke="#6366f1" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <text x="640" y="100" font-size="10" fill="#6366f1">循环</text>
+  <!-- Prediction -->
+  <text x="30" y="155" font-size="14" font-weight="600" fill="#172033">预测：50个弱学习器 → 加权投票</text>
+  <rect x="20" y="168" width="90" height="36" rx="4" fill="#fde68a" stroke="#94a3b8"/>
+  <text x="65" y="190" text-anchor="middle" font-size="12" fill="#172033">新样本x</text>
+  <line x1="110" y1="186" x2="155" y2="186" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="160" y="160" width="210" height="52" rx="6" fill="#c7d2fe" stroke="#94a3b8"/>
+  <text x="265" y="182" text-anchor="middle" font-size="11" fill="#172033">50个弱学习器各自预测</text>
+  <text x="265" y="200" text-anchor="middle" font-size="10" fill="#5b6475">h₁(x), h₂(x), ..., h₅₀(x)</text>
+  <line x1="370" y1="186" x2="415" y2="186" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="420" y="155" width="230" height="62" rx="6" fill="#c7d2fe" stroke="#94a3b8"/>
+  <text x="535" y="178" text-anchor="middle" font-size="11" font-weight="600" fill="#172033">加权求和 → 最终预测</text>
+  <text x="535" y="196" text-anchor="middle" font-size="10" fill="#5b6475">H(x) = sign( Σ αₜ·hₜ(x) )</text>
+  <text x="535" y="212" text-anchor="middle" font-size="10" fill="#5b6475">准确率高的分类器 αₜ 大 → 投票权重大</text>
+  <line x1="650" y1="186" x2="695" y2="186" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="700" y="170" width="80" height="32" rx="4" fill="#fde68a" stroke="#94a3b8"/>
+  <text x="740" y="190" text-anchor="middle" font-size="13" font-weight="700" fill="#172033">89.84%</text>
+  <!-- Key insight -->
+  <rect x="20" y="240" width="780" height="60" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-dasharray="6 5"/>
+  <text x="30" y="260" font-size="11" font-weight="600" fill="#172033">关键设计："弱"是故意的 — 每棵决策树只需略好于随机猜测 (depth=3)</text>
+  <text x="30" y="280" font-size="10" fill="#5b6475">弱学习器→自适应加权→组合成强分类器。与Gradient Boosting的区别：不拟合残差，而是调整样本分布。</text>
+  <text x="30" y="296" font-size="10" fill="#6366f1">特点：推理最快(30ms)，几乎不过拟合(1.72%)，但对标签噪声敏感 — 异常样本的权重会被指数放大</text>
+</svg>
