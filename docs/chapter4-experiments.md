@@ -50,7 +50,7 @@ K 是 KNN 唯一的超参数：
 ---
 
 <div align="center">
- <img src="images/knn-architecture.svg" alt="KNN架构" style="width:95%;max-width:720px;border:1px solid #e2e8f0;border-radius:8px;margin:20px 0" />
+ <img src="images/knn-architecture.svg" alt="KNN架构" width="1600" style="max-width:none;border:1px solid #e2e8f0;border-radius:8px;margin:20px 0" />
 </div>
 
 ### 4.1.2 代码实现
@@ -150,7 +150,7 @@ $$C(7,2) = 21$$
 ---
 
 <div align="center">
- <img src="images/svm-architecture.svg" alt="SVM架构" style="width:95%;max-width:720px;border:1px solid #e2e8f0;border-radius:8px;margin:20px 0" />
+ <img src="images/svm-architecture.svg" alt="SVM架构" width="1600" style="max-width:none;border:1px solid #e2e8f0;border-radius:8px;margin:20px 0" />
 </div>
 
 ### 4.2.2 代码实现
@@ -261,7 +261,7 @@ $$
 ---
 
 <div align="center">
- <img src="images/rf-architecture.svg" alt="RF架构" style="width:95%;max-width:720px;border:1px solid #e2e8f0;border-radius:8px;margin:20px 0" />
+ <img src="images/rf-architecture.svg" alt="RF架构" width="1600" style="max-width:none;border:1px solid #e2e8f0;border-radius:8px;margin:20px 0" />
 </div>
 
 ### 4.3.2 代码实现
@@ -373,7 +373,7 @@ $$
 ---
 
 <div align="center">
- <img src="images/adaboost-architecture.svg" alt="AdaBoost架构" style="width:95%;max-width:720px;border:1px solid #e2e8f0;border-radius:8px;margin:20px 0" />
+ <img src="images/adaboost-architecture.svg" alt="AdaBoost架构" width="1600" style="max-width:none;border:1px solid #e2e8f0;border-radius:8px;margin:20px 0" />
 </div>
 
 ### 4.4.2 代码实现
@@ -489,7 +489,7 @@ Softmax → 预测类别
 ---
 
 <div align="center">
- <img src="images/gcn-architecture.svg" alt="GCN架构" style="width:95%;max-width:720px;border:1px solid #e2e8f0;border-radius:8px;margin:20px 0" />
+ <img src="images/gcn-architecture.svg" alt="GCN架构" width="1600" style="max-width:none;border:1px solid #e2e8f0;border-radius:8px;margin:20px 0" />
 </div>
 
 ### 4.5.2 代码实现
