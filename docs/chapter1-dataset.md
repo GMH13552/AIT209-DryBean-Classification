@@ -1,73 +1,72 @@
-# 1. 数据集概览
+# 第一章 · 识豆：数据集初探
 
-## 来源
+## 从哪里来
 
-**Dry Bean Dataset** 来自 UCI Machine Learning Repository，由 Koklu & Ozkan 于 2020 年发布。
+**Dry Bean Dataset** 来自 UCI Machine Learning Repository（机器学习领域最经典的数据集仓库之一）。2020 年由 Koklu 和 Ozkan 发布。
 
-数据采集过程：使用高分辨率相机拍摄 7 种干豆的图像，通过计算机视觉技术从每颗豆子的轮廓中提取 16 个数值特征。
+数据是怎么来的？研究人员用高分辨率相机拍下 7 种干豆的图像，然后通过计算机视觉算法，从每颗豆子的轮廓中提取了 16 个数值特征。
 
-- **原始论文**: Koklu, M. and Ozkan, I.A., "Multiclass Classification of Dry Beans Using Computer Vision and Machine Learning Techniques." *Computers and Electronics in Agriculture*, 174, 105507 (2020)
-- **UCI 页面**: https://archive.ics.uci.edu/dataset/602/dry+bean+dataset
+> 📄 Koklu, M. and Ozkan, I.A. (2020). "Multiclass Classification of Dry Beans Using Computer Vision and Machine Learning Techniques." *Computers and Electronics in Agriculture*, 174, 105507.
 
-## 数据划分（教师提供）
+## 要分什么
 
-| 数据集 | 样本数 | 占比 |
-|--------|--------|------|
-| 训练集 (train) | 9,527 | 70% |
-| 验证集 (val) | 1,347 | 10% |
-| 测试集 (test) | 2,737 | 20% |
-| **合计** | **13,611** | 100% |
+任务是将干豆分为 **7 个品种**：
 
-> 注：数据已由教师划分为三个文件，且**刻意注入了数据质量问题**（详见第 2 章）
+```
+BARBUNYA   927 条  ┤ ████████                 9.7%
+BOMBAY     361 条  ┤ ███                      3.8%  ← 最少
+CALI      1151 条  ┤ ██████████              12.1%
+DERMASON  2503 条  ┤ ██████████████████████   26.3%  ← 最多
+HOROZ     1340 条  ┤ ████████████            14.1%
+SEKER     1408 条  ┤ ████████████            14.8%
+SIRA      1837 条  ┤ ████████████████        19.3%
+```
 
-## 7 种豆类
+> ⚠️ BOMBAY 和 DERMASON 的比例接近 **1:7**，存在明显的类别不平衡。
 
-| 编号 | 类别名 | 训练集样本数 | 占比 |
-|:---:|--------|:---:|------|
-| 0 | BARBUNYA（红花豆） | 927 | 9.7% |
-| 1 | BOMBAY（孟买豆） | 361 | 3.8% |
-| 2 | CALI（卡利豆） | 1,151 | 12.1% |
-| 3 | DERMASON（德马森豆） | 2,503 | 26.3% |
-| 4 | HOROZ（霍罗兹豆） | 1,340 | 14.1% |
-| 5 | SEKER（塞克尔豆） | 1,408 | 14.8% |
-| 6 | SIRA（西拉豆） | 1,837 | 19.3% |
+## 用什么分
 
-> ⚠️ **类别不平衡**：BOMBAY 仅 361 条 vs DERMASON 2,503 条，比例约 **1:7**
+16 个特征全部是数值型，可分为三类：
 
-## 16 个特征
+**📐 几何特征（7 个）** — 描述豆粒的物理尺寸
+```
+Area, Perimeter, MajorAxisLength, MinorAxisLength,
+ConvexArea, EquivDiameter, roundness
+```
 
-所有特征均为从豆粒图像中提取的数值型特征，无类别型变量：
+**📏 比例特征（2 个）** — 比值和归一化量
+```
+AspectRation, Extent
+```
 
-| 特征 | 类型 | 说明 |
-|------|------|------|
-| Area | 几何 | 豆粒面积（像素²） |
-| Perimeter | 几何 | 周长（像素） |
-| MajorAxisLength | 几何 | 长轴长度 |
-| MinorAxisLength | 几何 | 短轴长度 |
-| AspectRation | 比例 | 长宽比 (Major/Minor) |
-| Eccentricity | 形状 | 偏心率（0=圆，1=线段） |
-| ConvexArea | 几何 | 凸包面积 |
-| EquivDiameter | 几何 | 等效直径 |
-| Extent | 比例 | 面积/边界框面积 |
-| Solidity | 比例 | 面积/凸包面积 |
-| roundness | 形状 | 圆度 |
-| Compactness | 形状 | 紧密度 |
-| ShapeFactor1 | 形状 | 形状因子 1 |
-| ShapeFactor2 | 形状 | 形状因子 2 |
-| ShapeFactor3 | 形状 | 形状因子 3 |
-| ShapeFactor4 | 形状 | 形状因子 4 |
+**🔷 形状特征（7 个）** — 描述轮廓形态
+```
+Eccentricity, Solidity, Compactness, ShapeFactor1~4
+```
 
-### 特征量纲差异
+## 特征量纲差异
 
-| 特征 | 典型范围 | 类型 |
-|------|----------|------|
-| Area, ConvexArea | 8,000 ~ 200,000 | 大数值 |
-| Perimeter | 400 ~ 2,500 | 中数值 |
-| MajorAxisLength, MinorAxisLength | 100 ~ 800 | 中数值 |
-| EquivDiameter | 100 ~ 500 | 中数值 |
-| Extent, Solidity, roundness | 0 ~ 1 | 小数 |
-| Compactness, ShapeFactor1-4 | 0 ~ 1 | 小数 |
-| AspectRation | 1 ~ 3 | 小数 |
-| Eccentricity | 0 ~ 1 | 小数 |
+一个关键观察——这些特征的数值尺度差异巨大：
 
-> 💡 量纲差异巨大 → 必须标准化才能正确使用 SVM、MLP 等距离敏感算法
+```
+Area           8,204 ~ 207,528    ← 万级别
+Perimeter        413 ~ 2,438     ← 千级别
+Solidity         0.55 ~ 0.99     ← 0-1 之间
+Eccentricity     0.22 ~ 0.99     ← 0-1 之间
+```
+
+这种量纲差异意味着：如果不做标准化，大数值特征（如 Area）会完全主导 KNN 和 SVM 的距离计算。一个 10 万级别的 Area 差异，会让 0.1 级别的 Solidity 差异变得微不足道——尽管它们可能同样重要。
+
+标准化（第三章会详细处理）正是为了解决这个问题。
+
+## 数据划分
+
+教师提供了预划分的三个文件：
+
+| 文件 | 样本数 | 用途 |
+|------|:---:|------|
+| `Dry_Bean_Dataset_Dirty_train.csv` | 9,527 | 训练模型 |
+| `Dry_Bean_Dataset_Dirty_val.csv` | 1,347 | 验证调参 |
+| `Dry_Bean_Dataset_Dirty_test.csv` | 2,737 | 最终测试 |
+
+注意文件名中的 **Dirty**——这是教师故意留下的线索。数据经过了刻意污染，需要在建模前清洗。这恰是下一章的主题。
