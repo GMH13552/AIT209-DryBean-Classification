@@ -8,61 +8,15 @@
 
 项目采用**模块化架构**，由 `main.py` 统一调度，各模块职责清晰：
 
-```
-                        main.py
-                      (总调度中心)
-                           │
-          ┌────────────────┼────────────────┐
-          │                │                │
-          ▼                ▼                ▼
-    data_loader.py    preprocess.py     (训练 & 评估)
-    ┌────────────┐   ┌─────────────┐   ┌──────────┐
-    │ 加载 CSV   │   │ ① 标签清洗  │   │ KNN      │
-    │ 标签映射表 │   │ ② Solidity  │   │ SVM      │
-    └────────────┘   │ ③ Compact   │   │ RF       │
-                     │ ④ 缺失填充  │   │ AdaBoost │
-                     │ ⑤ 标准化    │   └──────────┘
-                     └─────────────┘         │
-                                             ▼
-                                      results/model_comparison.csv
-```
+<div align="center">
+  <img src="images/system-architecture.svg" alt="系统架构" style="width:100%;border:1px solid #e2e8f0;border-radius:8px;margin:20px 0" />
+</div>
 
 ### 目录结构
 
-```
-AIT209-DryBean-Classification/
-│
-├── main.py                  ← 🎯 一键启动入口
-├── requirements.txt         ← 依赖清单
-│
-├── src/                     ← 源代码（四个功能模块）
-│   ├── data_loader.py       → 数据加载 + 标签映射
-│   ├── preprocess.py        → 5 步预处理流水线
-│   ├── main.py              → 训练调度 + 评估输出（KNN/SVM/RF/AdaBoost）
-│   └── gnn.py               → 图卷积网络（KNN图 + 2层GCN）
-│
-├── data/                    ← 数据集（gitignore）
-│   ├── Dry_Bean_Dataset_Dirty_train.csv
-│   ├── Dry_Bean_Dataset_Dirty_val.csv
-│   └── Dry_Bean_Dataset_Dirty_test.csv
-│
-├── results/                 ← 实验结果
-│   └── model_comparison.csv
-│
-├── models/                  ← 模型保存（gitignore）
-│
-├── docs/                    ← GitBook 文档
-│   ├── chapter1-dataset.md
-│   ├── chapter2-eda.md
-│   ├── chapter3-preprocessing.md
-│   ├── chapter4-experiments.md
-│   ├── chapter5-summary.md
-│   └── chapter6-system.md
-│
-├── book.json                ← GitBook 配置
-├── SUMMARY.md               ← GitBook 目录
-└── README.md                ← 项目首页
-```
+<div align="center">
+  <img src="images/directory-tree.svg" alt="目录结构" style="width:100%;border:1px solid #e2e8f0;border-radius:8px;margin:20px 0" />
+</div>
 
 ---
 
