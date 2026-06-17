@@ -1,50 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 350" font-family="system-ui,sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1950 875" font-family="system-ui,sans-serif">
   <defs><marker id="a" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5 Z" fill="#6366f1"/></marker></defs>
-  <rect width="780" height="350" fill="#f8fafc" rx="8"/>
+  <rect width="1950" height="875" fill="#f8fafc" rx="50"/>
   <!-- Phase 1 -->
-  <text x="25" y="24" font-size="15" font-weight="700" fill="#172033">Phase 1 · 建图（训练时一次性完成）</text>
-  <rect x="20" y="40" width="155" height="72" rx="6" fill="#bfdbfe" stroke="#94a3b8"/>
-  <text x="97" y="64" text-anchor="middle" font-size="13" font-weight="600" fill="#172033">特征矩阵 X</text>
-  <text x="97" y="82" text-anchor="middle" font-size="11" fill="#5b6475">n × 16, 标准化</text>
-  <text x="97" y="98" text-anchor="middle" font-size="10" fill="#5b6475">面积,周长,...</text>
-  <line x1="175" y1="76" x2="220" y2="76" stroke="#6366f1" stroke-width="2" marker-end="url(#a)"/>
-  <rect x="225" y="45" width="130" height="62" rx="6" fill="#c7d2fe" stroke="#94a3b8"/>
-  <text x="290" y="68" text-anchor="middle" font-size="13" font-weight="600" fill="#172033">KNN (k=10)</text>
-  <text x="290" y="86" text-anchor="middle" font-size="11" fill="#5b6475">欧氏距离建边</text>
-  <text x="290" y="100" text-anchor="middle" font-size="10" fill="#5b6475">每个节点→10条边</text>
-  <line x1="355" y1="76" x2="400" y2="76" stroke="#6366f1" stroke-width="2" marker-end="url(#a)"/>
+  <text x="62" y="60" font-size="37.5" font-weight="700" fill="#172033">Phase 1 · 建图（训练时一次性完成）</text>
+  <rect x="50" y="100" width="388" height="180" rx="38" fill="#bfdbfe" stroke="#94a3b8"/>
+  <text x="242" y="160" text-anchor="middle" font-size="32.5" font-weight="600" fill="#172033">特征矩阵 X</text>
+  <text x="242" y="205" text-anchor="middle" font-size="27.5" fill="#5b6475">n × 16, 标准化</text>
+  <text x="242" y="245" text-anchor="middle" font-size="25.0" fill="#5b6475">面积,周长,...</text>
+  <line x1="438" y1="190" x2="550" y2="190" stroke="#6366f1" stroke-width="9" marker-end="url(#a)"/>
+  <rect x="562" y="112" width="325" height="155" rx="38" fill="#c7d2fe" stroke="#94a3b8"/>
+  <text x="725" y="170" text-anchor="middle" font-size="32.5" font-weight="600" fill="#172033">KNN (k=10)</text>
+  <text x="725" y="215" text-anchor="middle" font-size="27.5" fill="#5b6475">欧氏距离建边</text>
+  <text x="725" y="250" text-anchor="middle" font-size="25.0" fill="#5b6475">每个节点→10条边</text>
+  <line x1="888" y1="190" x2="1000" y2="190" stroke="#6366f1" stroke-width="9" marker-end="url(#a)"/>
   <!-- Graph viz -->
-  <rect x="405" y="35" width="175" height="82" rx="6" fill="#99f6e4" stroke="#94a3b8"/>
-  <circle cx="440" cy="62" r="5" fill="#6366f1"/><circle cx="465" cy="55" r="5" fill="#6366f1"/><circle cx="490" cy="68" r="5" fill="#6366f1"/>
-  <circle cx="455" cy="85" r="5" fill="#6366f1"/><circle cx="480" cy="92" r="5" fill="#6366f1"/><circle cx="515" cy="78" r="5" fill="#93c5fd"/>
-  <line x1="445" y1="62" x2="460" y2="55" stroke="#94a3b8" stroke-width="1"/><line x1="470" y1="55" x2="485" y2="68" stroke="#94a3b8" stroke-width="1"/><line x1="460" y1="85" x2="475" y2="92" stroke="#94a3b8" stroke-width="1"/><line x1="485" y1="85" x2="510" y2="78" stroke="#94a3b8" stroke-width="1"/><line x1="495" y1="68" x2="510" y2="78" stroke="#94a3b8" stroke-width="1"/>
-  <text x="545" y="62" font-size="10" fill="#5b6475">● 训练节点</text>
-  <circle cx="555" cy="82" r="4" fill="#93c5fd"/><text x="565" y="86" font-size="10" fill="#5b6475">测试节点</text>
-  <text x="493" y="110" text-anchor="middle" font-size="10" fill="#6366f1">边=特征相似</text>
+  <rect x="1012" y="88" width="438" height="205" rx="38" fill="#99f6e4" stroke="#94a3b8"/>
+  <circle cx="2750" cy="388" r="12" fill="#6366f1"/><circle cx="2905" cy="345" r="12" fill="#6366f1"/><circle cx="3062" cy="425" r="12" fill="#6366f1"/>
+  <circle cx="2845" cy="530" r="12" fill="#6366f1"/><circle cx="3000" cy="575" r="12" fill="#6366f1"/><circle cx="3220" cy="488" r="12" fill="#93c5fd"/>
+  <line x1="1112" y1="155" x2="1150" y2="138" stroke="#94a3b8" stroke-width="4"/><line x1="1175" y1="138" x2="1212" y2="170" stroke="#94a3b8" stroke-width="4"/><line x1="1150" y1="212" x2="1188" y2="230" stroke="#94a3b8" stroke-width="4"/><line x1="1212" y1="212" x2="1275" y2="195" stroke="#94a3b8" stroke-width="4"/><line x1="1238" y1="170" x2="1275" y2="195" stroke="#94a3b8" stroke-width="4"/>
+  <text x="1362" y="155" font-size="25.0" fill="#5b6475">● 训练节点</text>
+  <circle cx="3470" cy="512" r="10" fill="#93c5fd"/><text x="1412" y="215" font-size="25.0" fill="#5b6475">测试节点</text>
+  <text x="1232" y="275" text-anchor="middle" font-size="25.0" fill="#6366f1">边=特征相似</text>
   <!-- Phase 2 -->
-  <text x="25" y="155" font-size="15" font-weight="700" fill="#172033">Phase 2 · 前向传播（仅 1,543 参数）</text>
-  <line x1="198" y1="160" x2="198" y2="185" stroke="#6366f1" stroke-width="2"/>
+  <text x="62" y="388" font-size="37.5" font-weight="700" fill="#172033">Phase 2 · 前向传播（仅 1,543 参数）</text>
+  <line x1="495" y1="400" x2="495" y2="462" stroke="#6366f1" stroke-width="9"/>
   <!-- Layer 1 box -->
-  <rect x="20" y="190" width="170" height="72" rx="6" fill="#c7d2fe" stroke="#94a3b8"/>
-  <text x="105" y="214" text-anchor="middle" font-size="13" font-weight="600" fill="#172033">GCN Layer 1</text>
-  <text x="105" y="234" text-anchor="middle" font-size="10" fill="#5b6475">H₁ = σ(D⁻½AD⁻½ X W₁)</text>
-  <text x="105" y="250" text-anchor="middle" font-size="10" fill="#5b6475">16 → 64, ReLU</text>
-  <line x1="190" y1="226" x2="235" y2="226" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
-  <rect x="240" y="200" width="95" height="52" rx="6" fill="#fecaca" stroke="#94a3b8"/>
-  <text x="287" y="222" text-anchor="middle" font-size="12" font-weight="600" fill="#172033">Dropout</text>
-  <text x="287" y="240" text-anchor="middle" font-size="10" fill="#5b6475">p=0.3</text>
-  <line x1="335" y1="226" x2="380" y2="226" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
-  <rect x="385" y="190" width="170" height="72" rx="6" fill="#c7d2fe" stroke="#94a3b8"/>
-  <text x="470" y="214" text-anchor="middle" font-size="13" font-weight="600" fill="#172033">GCN Layer 2</text>
-  <text x="470" y="234" text-anchor="middle" font-size="10" fill="#5b6475">H₂ = D⁻½AD⁻½ H₁ W₂</text>
-  <text x="470" y="250" text-anchor="middle" font-size="10" fill="#5b6475">64 → 7, 输出logits</text>
-  <line x1="555" y1="226" x2="600" y2="226" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
-  <rect x="605" y="198" width="95" height="56" rx="6" fill="#fde68a" stroke="#94a3b8"/>
-  <text x="652" y="222" text-anchor="middle" font-size="12" font-weight="600" fill="#172033">Softmax</text>
-  <text x="652" y="242" text-anchor="middle" font-size="10" fill="#5b6475">→ 预测类别</text>
+  <rect x="50" y="475" width="425" height="180" rx="38" fill="#c7d2fe" stroke="#94a3b8"/>
+  <text x="262" y="535" text-anchor="middle" font-size="32.5" font-weight="600" fill="#172033">GCN Layer 1</text>
+  <text x="262" y="585" text-anchor="middle" font-size="25.0" fill="#5b6475">H₁ = σ(D⁻½AD⁻½ X W₁)</text>
+  <text x="262" y="625" text-anchor="middle" font-size="25.0" fill="#5b6475">16 → 64, ReLU</text>
+  <line x1="475" y1="565" x2="588" y2="565" stroke="#64748b" stroke-width="6" marker-end="url(#a)"/>
+  <rect x="600" y="500" width="238" height="130" rx="38" fill="#fecaca" stroke="#94a3b8"/>
+  <text x="718" y="555" text-anchor="middle" font-size="30.0" font-weight="600" fill="#172033">Dropout</text>
+  <text x="718" y="600" text-anchor="middle" font-size="25.0" fill="#5b6475">p=0.3</text>
+  <line x1="838" y1="565" x2="950" y2="565" stroke="#64748b" stroke-width="6" marker-end="url(#a)"/>
+  <rect x="962" y="475" width="425" height="180" rx="38" fill="#c7d2fe" stroke="#94a3b8"/>
+  <text x="1175" y="535" text-anchor="middle" font-size="32.5" font-weight="600" fill="#172033">GCN Layer 2</text>
+  <text x="1175" y="585" text-anchor="middle" font-size="25.0" fill="#5b6475">H₂ = D⁻½AD⁻½ H₁ W₂</text>
+  <text x="1175" y="625" text-anchor="middle" font-size="25.0" fill="#5b6475">64 → 7, 输出logits</text>
+  <line x1="1388" y1="565" x2="1500" y2="565" stroke="#64748b" stroke-width="6" marker-end="url(#a)"/>
+  <rect x="1512" y="495" width="238" height="140" rx="38" fill="#fde68a" stroke="#94a3b8"/>
+  <text x="1630" y="555" text-anchor="middle" font-size="30.0" font-weight="600" fill="#172033">Softmax</text>
+  <text x="1630" y="605" text-anchor="middle" font-size="25.0" fill="#5b6475">→ 预测类别</text>
   <!-- Parameter panel -->
-  <rect x="20" y="285" width="740" height="54" rx="6" fill="#e2e8f0" stroke="#94a3b8" stroke-dasharray="6 5"/>
-  <text x="35" y="304" font-size="11" font-weight="600" fill="#172033">参数明细：</text>
-  <text x="120" y="304" font-size="10" fill="#5b6475">W₁(16×64=1024) </text><text x="240" y="304" font-size="10" fill="#5b6475">b₁(64) </text><text x="300" y="304" font-size="10" fill="#5b6475">W₂(64×7=448) </text><text x="420" y="304" font-size="10" fill="#5b6475">b₂(7) </text><text x="470" y="304" font-size="10" fill="#5b6475">总计 1,543</text>
-  <text x="35" y="326" font-size="10" fill="#6366f1">推理：新样本→KNN找10邻居→邻居特征×W₁→聚合→ReLU→×W₂→Softmax。GCN 学的是"如何利用邻居特征"，而非简单数标签。</text>
+  <rect x="50" y="712" width="1850" height="135" rx="38" fill="#e2e8f0" stroke="#94a3b8" stroke-dasharray="6 5"/>
+  <text x="88" y="760" font-size="27.5" font-weight="600" fill="#172033">参数明细：</text>
+  <text x="300" y="760" font-size="25.0" fill="#5b6475">W₁(16×64=1024) </text><text x="600" y="760" font-size="25.0" fill="#5b6475">b₁(64) </text><text x="750" y="760" font-size="25.0" fill="#5b6475">W₂(64×7=448) </text><text x="1050" y="760" font-size="25.0" fill="#5b6475">b₂(7) </text><text x="1175" y="760" font-size="25.0" fill="#5b6475">总计 1,543</text>
+  <text x="88" y="815" font-size="25.0" fill="#6366f1">推理：新样本→KNN找10邻居→邻居特征×W₁→聚合→ReLU→×W₂→Softmax。GCN 学的是"如何利用邻居特征"，而非简单数标签。</text>
 </svg>

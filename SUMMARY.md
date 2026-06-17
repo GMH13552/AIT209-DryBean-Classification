@@ -8,7 +8,6 @@
 * [第二章 · 数据质量分析](docs/chapter2-eda.md)
 * [第三章 · 数据预处理与特征工程](docs/chapter3-preprocessing.md)
 * [第四章 · 多算法实验与对比分析](docs/chapter4-experiments.md)
-    * [模型架构图解](docs/model-architectures.html)
     * [4.1 K 近邻（KNN）](docs/chapter4-experiments.md#41-k-近邻knn)
         * [4.1.1 算法原理](docs/chapter4-experiments.md#411-算法原理)
         * [4.1.2 代码实现](docs/chapter4-experiments.md#412-代码实现)
