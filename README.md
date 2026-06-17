@@ -30,17 +30,17 @@ py src/main.py
 
 | 章节 | 内容 |
 |------|------|
-| [第一章](docs/chapter1-dataset.md) | 数据集概览 |
+| [第一章](docs/chapter1-dataset.md) | 数据集概述 |
 | [第二章](docs/chapter2-eda.md) | 数据质量分析 |
-| [第三章](docs/chapter3-preprocessing.md) | 数据预处理 |
+| [第三章](docs/chapter3-preprocessing.md) | 数据预处理与特征工程 |
 | [第四章](docs/chapter4-experiments.md) | 多算法实验 |
-| [第五章](docs/chapter5-summary.md) | 课程总结 |
+| [第五章](docs/chapter5-summary.md) | 课程总结与反思 |
 
 ### 第二部分：系统展示
 
 | 章节 | 内容 |
 |------|------|
-| [第六章](docs/chapter6-system.md) | 系统架构 |
+| [第六章](docs/chapter6-system.md) | 系统工程实现 |
 
 ---
 
