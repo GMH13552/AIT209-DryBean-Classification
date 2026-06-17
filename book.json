@@ -1,0 +1,12 @@
+{
+  "title": "Dry Bean 多分类 — ML 全流程项目",
+  "description": "AIT209 机器学习与项目实践期末作业",
+  "author": "GMH13552",
+  "language": "zh-hans",
+  "gitbook": "3.2.3",
+  "root": ".",
+  "structure": {
+    "readme": "README.md",
+    "summary": "SUMMARY.md"
+  }
+}
