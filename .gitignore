@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Virtualenv
+venv/
+.venv/
+env/
+
+# Data (not committed)
+data/*.csv
+data/*.xlsx
+data/*.arff
+data/*.zip
+
+# Models
+models/*.pkl
+models/*.pt
+models/*.h5
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Results (optional to commit)
+results/*.png
+results/*.csv
