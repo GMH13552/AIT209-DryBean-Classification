@@ -24,7 +24,8 @@
         * [4.4.1 算法原理](docs/chapter4-experiments.md#441-算法原理)
         * [4.4.2 代码实现](docs/chapter4-experiments.md#442-代码实现)
         * [4.4.3 实验结果与分析](docs/chapter4-experiments.md#443-实验结果与分析)
-    * [4.5 综合对比](docs/chapter4-experiments.md#45-综合对比)
+    * [4.5 图卷积网络（GCN）](docs/chapter4-experiments.md#45-图卷积网络gcn)
+    * [4.6 综合对比](docs/chapter4-experiments.md#46-综合对比)
 * [第五章 · 课程总结与反思](docs/chapter5-summary.md)
 
 ## 第二部分：系统展示

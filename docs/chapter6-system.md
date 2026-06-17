@@ -35,10 +35,11 @@ AIT209-DryBean-Classification/
 ├── main.py                  ← 🎯 一键启动入口
 ├── requirements.txt         ← 依赖清单
 │
-├── src/                     ← 源代码（三个功能模块）
+├── src/                     ← 源代码（四个功能模块）
 │   ├── data_loader.py       → 数据加载 + 标签映射
 │   ├── preprocess.py        → 5 步预处理流水线
-│   └── main.py              → 训练调度 + 评估输出
+│   ├── main.py              → 训练调度 + 评估输出（KNN/SVM/RF/AdaBoost）
+│   └── gnn.py               → 图卷积网络（KNN图 + 2层GCN）
 │
 ├── data/                    ← 数据集（gitignore）
 │   ├── Dry_Bean_Dataset_Dirty_train.csv
@@ -104,7 +105,7 @@ X_test  = scaler.transform(X_test)        # 只用 transform
 
 ### `main.py` — 调度层
 
-项目的入口。组织整个流程：
+项目的入口，组织 KNN、SVM、Random Forest、AdaBoost 四种算法的训练和评估。
 
 ```python
 # 1. 预处理
@@ -128,6 +129,17 @@ for name, model in models:
 # 4. 输出排名表 + 保存 CSV
 df.to_csv("results/model_comparison.csv")
 ```
+
+### `gnn.py` — 图卷积网络模块
+
+课外前沿算法。通过 KNN 构建样本间图结构，使用 2 层 GCN 进行节点分类。
+
+```bash
+# 单独运行 GCN 训练
+py src/gnn.py
+```
+
+不依赖 PyTorch Geometric，所有 GCN 层为纯 PyTorch 手动实现。
 
 ---
 
